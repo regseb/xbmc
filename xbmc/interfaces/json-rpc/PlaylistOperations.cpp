@@ -227,12 +227,18 @@ JSONRPC_STATUS CPlaylistOperations::Swap(const std::string &method, ITransportLa
   return ACK;
 }
 
-JSONRPC_STATUS CPlaylistOperations::SetShuffle(const std::string &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+JSONRPC_STATUS CPlaylistOperations::SetShuffle(const std::string& method,
+                                               ITransportLayer* transport,
+                                               IClient* client,
+                                               const CVariant& parameterObject,
+                                               CVariant& result)
 {
   int playlist = GetPlaylist(parameterObject["playlistid"]);
   bool shuffle = parameterObject["shuffle"].isBoolean() && parameterObject["shuffle"].asBoolean();
-  bool unshuffle = parameterObject["shuffle"].isBoolean() && !parameterObject["shuffle"].asBoolean();
-  bool toggle = parameterObject["shuffle"].isString() && parameterObject["shuffle"].asString() == "toggle";
+  bool unshuffle =
+      parameterObject["shuffle"].isBoolean() && !parameterObject["shuffle"].asBoolean();
+  bool toggle =
+      parameterObject["shuffle"].isString() && parameterObject["shuffle"].asString() == "toggle";
 
   switch (playlist)
   {
@@ -254,7 +260,9 @@ JSONRPC_STATUS CPlaylistOperations::SetShuffle(const std::string &method, ITrans
 
     case PLAYLIST_PICTURE:
     {
-      CGUIWindowSlideShow *slideshow = CServiceBroker::GetGUI()->GetWindowManager().GetWindow<CGUIWindowSlideShow>(WINDOW_SLIDESHOW);
+      CGUIWindowSlideShow* slideshow =
+          CServiceBroker::GetGUI()->GetWindowManager().GetWindow<CGUIWindowSlideShow>(
+              WINDOW_SLIDESHOW);
       if (!slideshow)
         return FailedToExecute;
       if (slideshow->IsShuffled())
@@ -276,7 +284,11 @@ JSONRPC_STATUS CPlaylistOperations::SetShuffle(const std::string &method, ITrans
   return ACK;
 }
 
-JSONRPC_STATUS CPlaylistOperations::SetRepeat(const std::string &method, ITransportLayer *transport, IClient *client, const CVariant &parameterObject, CVariant &result)
+JSONRPC_STATUS CPlaylistOperations::SetRepeat(const std::string& method,
+                                              ITransportLayer* transport,
+                                              IClient* client,
+                                              const CVariant& parameterObject,
+                                              CVariant& result)
 {
   int playlist = GetPlaylist(parameterObject["playlistid"]);
   if (playlist == PLAYLIST_PICTURE)
@@ -385,14 +397,17 @@ JSONRPC_STATUS CPlaylistOperations::GetPropertyValue(PLAYLIST::Id playlistId,
       case PLAYLIST_VIDEO:
       {
         bool shuffled;
-        CApplicationMessenger::GetInstance().SendMsg(TMSG_PLAYLISTPLAYER_IS_SHUFFLED, playlist, -1, static_cast<void*>(&shuffled));
+        CApplicationMessenger::GetInstance().SendMsg(TMSG_PLAYLISTPLAYER_IS_SHUFFLED, playlist, -1,
+                                                     static_cast<void*>(&shuffled));
         result = shuffled;
         break;
       }
 
       case PLAYLIST_PICTURE:
       {
-        CGUIWindowSlideShow *slideshow = CServiceBroker::GetGUI()->GetWindowManager().GetWindow<CGUIWindowSlideShow>(WINDOW_SLIDESHOW);
+        CGUIWindowSlideShow* slideshow =
+            CServiceBroker::GetGUI()->GetWindowManager().GetWindow<CGUIWindowSlideShow>(
+                WINDOW_SLIDESHOW);
         if (slideshow)
           result = slideshow->IsShuffled();
         else
@@ -412,7 +427,8 @@ JSONRPC_STATUS CPlaylistOperations::GetPropertyValue(PLAYLIST::Id playlistId,
       case PLAYLIST_VIDEO:
       {
         REPEAT_STATE state;
-        CApplicationMessenger::GetInstance().SendMsg(TMSG_PLAYLISTPLAYER_GET_REPEAT, playlist, -1, static_cast<void*>(&state));
+        CApplicationMessenger::GetInstance().SendMsg(TMSG_PLAYLISTPLAYER_GET_REPEAT, playlist, -1,
+                                                     static_cast<void*>(&state));
         switch (state)
         {
           case REPEAT_ONE:

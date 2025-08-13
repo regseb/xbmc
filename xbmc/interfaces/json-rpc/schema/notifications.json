@@ -270,11 +270,23 @@
     "type": "notification",
     "description": "A property of the playlist items has changed.",
     "params": [
-      { "name": "sender", "type": "string", "required": true },
-      { "name": "data", "type": "object", "required": true,
+      {
+        "name": "sender",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "data",
+        "type": "object",
+        "required": true,
         "properties": {
-          "property": { "$ref": "Playlist.Property.Value" },
-          "playlist": { "$ref": "Playlist.Notifications.Playlist", "required": true }
+          "property": {
+            "$ref": "Playlist.Property.Value"
+          },
+          "playlist": {
+            "$ref": "Playlist.Notifications.Playlist",
+            "required": true
+          }
         }
       }
     ],

@@ -822,25 +822,27 @@ void CPlayListPlayer::AnnouncePropertyChanged(Id playlistId,
   const auto& components = CServiceBroker::GetAppComponents();
   const auto appPlayer = components.GetComponent<CApplicationPlayer>();
 
-  if (strProperty.empty() || value.isNull()) {
+  if (strProperty.empty() || value.isNull())
+  {
     return;
 
-  CVariant dataPlaylist;
-  dataPlaylist["playlist"]["playlistid"] = static_cast<int>(playlistId);
-  dataPlaylist["property"][strProperty] = value;
-  CServiceBroker::GetAnnouncementManager()->Announce(ANNOUNCEMENT::Playlist, "OnPropertyChanged",
-                                                     dataPlaylist);
+    CVariant dataPlaylist;
+    dataPlaylist["playlist"]["playlistid"] = static_cast<int>(playlistId);
+    dataPlaylist["property"][strProperty] = value;
+    CServiceBroker::GetAnnouncementManager()->Announce(ANNOUNCEMENT::Playlist, "OnPropertyChanged",
+                                                       dataPlaylist);
 
-  if ((playlistId == Id::TYPE_VIDEO && !appPlayer->IsPlayingVideo()) ||
-      (playlistId == Id::TYPE_MUSIC && !appPlayer->IsPlayingAudio())) {
-    return;
+    if ((playlistId == Id::TYPE_VIDEO && !appPlayer->IsPlayingVideo()) ||
+        (playlistId == Id::TYPE_MUSIC && !appPlayer->IsPlayingAudio()))
+    {
+      return;
 
-  CVariant dataPlayer;
-  dataPlayer["player"]["playerid"] = static_cast<int>(playlistId);
-  dataPlayer["property"][strProperty] = value;
-  CServiceBroker::GetAnnouncementManager()->Announce(ANNOUNCEMENT::Player, "OnPropertyChanged",
-                                                     dataPlayer);
-}
+      CVariant dataPlayer;
+      dataPlayer["player"]["playerid"] = static_cast<int>(playlistId);
+      dataPlayer["property"][strProperty] = value;
+      CServiceBroker::GetAnnouncementManager()->Announce(ANNOUNCEMENT::Player, "OnPropertyChanged",
+                                                         dataPlayer);
+    }
 
 int PLAYLIST::CPlayListPlayer::GetMessageMask()
 {
@@ -1116,4 +1118,4 @@ void PLAYLIST::CPlayListPlayer::OnApplicationMessage(KODI::MESSAGING::ThreadMess
   }
 }
 
-} // namespace KODI::PLAYLIST
+  } // namespace KODI::PLAYLIST

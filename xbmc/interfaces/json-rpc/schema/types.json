@@ -1055,7 +1055,10 @@
   "Playlist.Notifications.Playlist": {
     "type": "object",
     "properties": {
-      "playlistid": { "$ref": "Player.Id", "required": true }
+      "playlistid": {
+        "$ref": "Player.Id",
+        "required": true
+      }
     }
   },
   "Item.Fields.Base": {
